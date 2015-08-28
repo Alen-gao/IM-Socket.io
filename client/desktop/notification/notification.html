@@ -1,0 +1,43 @@
+<meta charset="utf8">
+
+<style>
+  h1 {
+    margin: 0;
+  }
+  p {
+    margin: 4px 0;
+  }
+</style>
+
+<h1></h1>
+
+<p></p>
+
+<button id="x">×</button>
+<button id="check">√</button>
+
+<script>
+  var $ = require('jquery')
+  var remote = require('remote')
+  var ipc = require('ipc')
+  var curwin = remote.getCurrentWindow()
+
+  ipc.on('notification-data', function(data){
+    $('h1').text(data.title)
+    $('p').text(data.body)
+
+    $('#x').on('click', function(){
+      respond('x')
+    })
+    $('#check').on('click', function(){
+      respond('check')
+    })
+
+    curwin.showInactive()
+
+    function respond(ret){
+      ipc.send('notification-confirm', ret)
+      curwin.close()
+    }
+  })
+</script>
