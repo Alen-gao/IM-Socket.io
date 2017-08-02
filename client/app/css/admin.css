@@ -1,0 +1,533 @@
+******************
+   admin.html style css
+*******************/
+body{
+  -webkit-app-region: drag;
+}
+.left .setup, .left-list,.left .title, .left .menu,
+.right .title .operation{
+  -webkit-app-region: no-drag;
+}
+.main{
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: transparent;
+  overflow: hidden;
+}
+.left{
+  width: 300px;
+  height: 100%;
+  float: left;
+  box-shadow: 1px 0 1px #cccccc;
+}
+.left-list, .left-inform{
+  padding: 10px;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+.left-list{
+  padding: 10px 2px;
+}
+.left-list{
+  width: 220px;
+  background-color: rgba(242,242,242,.95);
+}
+
+.left-inform{
+  width: 80px;
+  background-color: rgba(48,35,27,.8);
+}
+.left .title{
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: -4px;
+}
+.left .title .radius{
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 4px;
+  border-radius: 10px;
+  background-color: #d45850;
+}
+.left .title .yellow{
+  background-color: #d9ba49;
+}
+.left .title .green{
+  background-color: #82c44d;
+}
+.left .user{
+  width: 56px;
+  height: 56px;
+  border-radius: 56px;
+  border: 2px solid #FFF;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+.left .user>img{
+  max-width: 100%;
+}
+.left .menu{
+  width: 100%;
+}
+.left .menu-item{
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 10px;
+  margin-bottom: 30px;
+}
+.left .menu-item>img{
+  max-width: 100%;
+}
+.left .setup{
+
+}
+.search{
+  width: 100%; 
+  padding: 10px;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.search>input{
+  width: 100%;
+  height: 30px;
+  padding: 10px 5px;
+  -webkit-app-region: no-drag;
+}
+.left .user-list{
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+}
+.left .user-list ul{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-app-region: no-drag;
+}
+.left .item{
+  width: 100%;
+  height: 56px;
+  position: relative;
+  border-radius: 56px;
+  padding: 8px;
+  margin-bottom: 2px;
+}
+.left .item .drag{
+  width: auto;
+  min-width: 20px;
+  height: 20px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 12px;
+  border: 2px solid #FFF;
+  color: #FFF;
+  background-color: #d45850;
+  padding: 0 4px;
+  display: block;
+  border-radius: 18px;
+  position: absolute;
+  left: 30px;
+  top: 2px; 
+}
+.left .item .close{
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  border-radius: 16px;
+  background-color: #d45850;
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -8px;
+}
+.left .item .close:before, .left .item .close:after{
+  content: '';
+  width: 1px;
+  height: 9px;
+  display: block;
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  background-color: #FFF;
+}
+.left .item .close:before{
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+.left .item .close:after{
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.left .active{
+  background-color: rgba(0,0,0,.1);
+}
+.left .item:hover{
+  background-color: rgba(0,0,0,.04);
+}
+.left .active:hover{
+  background-color: rgba(0,0,0,.1);
+}
+.left .item:hover .close{
+  display: block;
+}
+.left li img{
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  float: left;
+}
+.left li div{
+  height: 40px;
+  float: left;
+  line-height: 12px;
+  margin-left: 10px;
+  display: inline-block;
+}
+.left div strong{
+  font-weight: inherit;
+  font-size: 16px;
+  line-height: 16px;
+  margin-top: 2px;
+  margin-bottom: 6px;
+  color: #333;
+  display: block;
+}
+.left div span{
+  font-size: 14px;
+  color: #888;
+  display: inline-block;
+}
+.content{
+  width: 100%;
+  height: 100%;
+  padding: 80px 4px 120px 20px;
+}
+.content .message{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto; 
+  -webkit-app-region: no-drag;
+}
+.content .mess-left, .content .mess-right{
+  width: 100%;
+  padding: 10px 0;
+  min-height: 60px;
+  position: relative;
+}
+.mess-left .user-img, .mess-right .user-img{
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+.mess-right .user-img{
+  left: auto;
+  right: 0;
+}
+.mess-left .user-img img, .mess-right .user-img img{
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+}
+.mess-left .mess-cont,.mess-right .mess-cont{
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-block;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.2);
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  position: relative;
+  -webkit-user-select: initial;
+}
+.mess-left .mess-cont:after,.mess-right .mess-cont:after{
+  content: '';
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  background-image: url(../img/arrow.png);
+  background-repeat: no-repeat;
+  background-position: -3px -2px;
+  left: -13px;
+  top: 10px;
+}
+.mess-right .mess-cont:after{
+  left: auto;
+  right: -14px;
+  background-position: -60px -2px;
+}
+.mess-left .mess-cont{
+  margin-left: 55px;
+  background-color: #dfeffe;
+}
+.mess-right .mess-cont{
+  margin-right: 55px;
+  float: right;
+  background-color: #e0f3e0;
+}
+.message .prompt{
+  text-align: center;
+  margin: 15px 0; 
+}
+.message .prompt span{
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.3);
+  color: #FFF;
+  background-color: rgba(0,0,0,0.5);
+}
+.right{
+  height: 100%;
+  margin-left: 300px;
+  background-color: #FFF;
+  position: relative;
+}
+.right .title{
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 1px 1px 2px rgba(0,0,0,.18);
+  -webkit-app-region: drag;
+}
+.right .title .userPhoto{
+  padding: 10px;
+  float: left;
+}
+.right .title .userInform{
+  padding-top: 20px;
+  display: inline-block;
+  -webkit-app-region: no-drag;
+  -webkit-user-select: initial;
+}
+.right .title .userInform strong{
+  display: block;
+  font-size: 16px;
+  color: #333;
+  font-weight: inherit;
+}
+.right .title .userInform span{
+  font-size: 12px;
+  color: #999;
+}
+.right .title .operation{
+  height: 53px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.operation .sendfile, .operation .information{
+  width: 50px;
+  height: 53px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  background-image: url(../img/file.jpg);
+  background-position: 0  0;
+}
+.sendfile input{
+  width: 50px;
+  height: 53px;
+  opacity: 0;
+  cursor: pointer;
+}
+/*.sendfile .file-type{
+  width: 120px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #FFF;
+  border-radius: 5px;
+  position: absolute;
+  display: block;
+  top: 64px;
+  right: 0;
+}
+.sendfile .file-type:after, .sendfile .file-type:before{
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: -21px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #CCC transparent;
+}
+.sendfile .file-type:after{
+  top: -20px;
+  border-color: transparent transparent #FFF transparent;
+}*/
+.sendfile .file-type>p, .sendfile .file-type input{
+  width: 100%;
+  height: 30px;
+}
+.sendfile .file-type input{
+  opacity: 0;
+}
+.operation .information{
+  background-position: -84px 0;
+  margin-left: 20px;
+}
+.userPhoto img{
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  overflow: hidden;
+}
+.edit{
+  width: 100%;
+  height: 120px;
+  background-color: rgba(255,255,255,1);
+  border-top: 1px solid rgba(0,0,0,0.1);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  -webkit-app-region: no-drag;
+}
+.edit .bar{
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+}
+.bar span{
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: inline-block;
+  background-image: url(../img/bar.png);
+  background-repeat: no-repeat;
+}
+.edit .bar .font{
+  background-position: 1px -1px;
+}
+.edit .bar .font:hover{
+  background-position: 1px -30px;
+}
+.edit .bar .face{
+  background-position: -31px -1px;
+}
+.edit .bar .face:hover{
+  background-position: -31px -30px;
+}
+.edit .bar .shake{
+  background-position: -59px -1px;
+}
+.edit .bar .shake:hover{
+  background-position: -59px -30px;
+}
+.edit .bar .det{
+  background-position: -86px  -1px;
+}
+.edit .bar .det:hover{
+  background-position: -86px  -30px;
+}
+.edit .bar .img{
+  background-position: -115px -1px;
+}
+.edit .bar .img:hover{
+  background-position: -115px -30px;
+}
+.edit .bar .cut{
+  background-position: -146px  -1px;
+}
+.edit .bar .cut:hover{
+  background-position: -146px  -30px;
+}
+.bar .record{
+  width: 128px;
+  height: 30px;
+  cursor: pointer;
+  color: #999;
+  padding-left: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  font-weight: inherit;
+  background-image: url(../img/bar.png);
+  background-repeat: no-repeat;
+  background-position: -183px -1px;
+}
+.bar .record:hover{
+  color: #888;
+  background-position: -183px -30px;
+}
+.edit .textarea{
+  padding: 5px 10px;
+  width: 600px;
+  line-height: 22px;
+  height: 70px;
+  max-height: 70px;
+  box-shadow: none;
+  border: none;
+  border: 0;
+  outline: 0;
+  cursor: text;
+  padding: 0 10px;
+  overflow: auto;
+  display: block;
+  word-wrap: break-word;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+// .edit textarea{
+//   width: 600px;
+//   padding: 2px 5px;
+//   line-height: 22px;
+//   height: 70px;
+//   max-height: 70px;
+//   box-shadow: none;
+//   border: none;
+// }
+.file-cont{
+  width: 320px;
+  height: 120px;
+  border: 1px solid #E4E4E4;
+  border-radius: 6px;
+  background-color: #FFF;
+}
+.file-cont .file-ico{
+  width: 70px;
+  height: 75px;
+  display: inline-block;
+  background-image: url(../img/file.png);
+}
+.file-cont .file-bot{
+  width: 100%;
+  height: 30px;
+  text-align: right;
+  color: #666;
+  border-top: 1px solid #CCC;
+}
+/*.edit button{
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #f7f7f7;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  box-shadow: 0 0 2px #818181;
+  -webkit-transition: all 0.5s;
+}
+.edit button:hover{
+    background-color: #E4E2E2;
+}
