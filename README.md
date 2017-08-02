@@ -4,8 +4,6 @@
 
 <img src="https://raw.githubusercontent.com/Alen-gao/IM-Socket.io/dev/login.jpg">
 
-<img src="https://raw.githubusercontent.com/Alen-gao/IM-Socket.io/dev/list.jpg">
-
 <img src="https://raw.githubusercontent.com/Alen-gao/IM-Socket.io/dev/message.jpg">
 
 ##代码演示
