@@ -1,149 +1,138 @@
-var app = require('app');  
-var ipc = require('ipc');
-var Tray = require('tray');
-var Menu = require('menu');
-var path = require('path');
-var powerSaveBlocker = require('power-save-blocker');
-var BrowserWindow = require('browser-window');  
-// var $ = jQuery = require('jquery'); // as node_modules
+/**
+ * electron main process
+ * webSocket 
+ * author by Alen-gao
+ * time is 2017/01/21 00:44
+*/
+
+// Introduce dependency
+const electron = require('electron');
+const app = electron.app;
+const path = require('path');
+// const {app, Menu, Tray} = require('electron')
+// const remote = electron.remote;
+const Tray = electron.Tray;
+const Menu = electron.Menu;
+// const Menu = require('menu');
+
+const ipcMain = electron.ipcMain;
+const BrowserWindow = electron.BrowserWindow;
 
 
-// Report crashes to our server.
-require('crash-reporter').start();
+// This method will be called when Electron has done everything
+// initialization and ready for creating browser windows.
+let tray = null;
+let chatWindow = null;
+// ipc.on('openDevTools', function(){
+        
+    // });
 
-
-var loginWindow = null;
-var commWindow = null;
-var messWindow = null;
-var appIcon = null;
-
-
-app.on('window-all-closed', function() {
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
-});
-
-// app.on('closed')
 app.on('ready', function() {
-  var ico = path.join(__dirname, 'images', 'Genius.png');
-  loginWindow = new BrowserWindow({
-    width: 430
-   ,height: 330
-   ,frame: false
-   ,resizable: true
-   ,icon: ico
-   ,show:false
+  
+  // IM icon 
+  var ico = path.join(__dirname, 'app/img', 'ico.png');
+  var mainWindow = new BrowserWindow({
+    width: 360
+    ,height: 300
+    ,transparent: true
+    ,frame: false
+    ,icon: ico
   });
 
+  // and load the index.html of the app.
+  mainWindow.loadURL('file://' + __dirname + '/app/login.html');
+
+  // IM menu
+
   
-  
-  //set tray icon
-  appTray = new Tray(ico);
-  var blocker_id = null;
-  var contextMenu = Menu.buildFromTemplate([
-    { label: '退出',
+
+
+
+  tray = new Tray(ico);
+  const contextMenu = Menu.buildFromTemplate([
+    { label: '用户设置',
       accelerator: 'Command+Q',
       selector: 'terminate:',
       click: function() {
-        loginWindow.close();
-        loginWindow = null;
+        
+      }
+    }, { label: '意见反馈',
+      accelerator: 'Command+Q',
+      selector: 'terminate:',
+      click: function() {
+        
+      }
+    }, { label: '帮助中心',
+      accelerator: 'Command+Q',
+      selector: 'terminate:',
+      click: function() {
+       
+      }
+    },
+    { label: '关于IM',
+      accelerator: 'Command+Q',
+      selector: 'terminate:',
+      click: function() {
+        
+      }
+    }, { label: '退出IM',
+      accelerator: 'Command+Q',
+      selector: 'terminate:',
+      click: function() {
+        mainWindow.close();
+        mainWindow = null;
       }
     }
-  ]);
-  appTray.on("clicked", function(){
-    loginWindow.show();
-  })
-  appTray.setToolTip(app.getName());
-  appTray.setContextMenu(contextMenu);
-  loginWindow.loadUrl('file://' + __dirname + '/login.html');
-  loginWindow.webContents.on( 'did-finish-load', function () {
-      loginWindow.show();
-  });
-  
+  ])
+  tray.setToolTip('This is my IM')
+  tray.setContextMenu(contextMenu)
 
-  // 执行最大化，最小化，关闭窗体操作
-  ipc.on('close', function(event, arg) {
-    loginWindow.close();
-    loginWindow = null;
-  });
-  ipc.on('minimize', function(event, arg) {
-    loginWindow.minimize();
-  });
-  ipc.on('maximize', function(event, arg) {
-    loginWindow.maximize();
-  });
-  ipc.on('restore', function(event, arg) {
-    loginWindow.restore();
-  });
 
-  ipc.on('close:comm', function(event, arg) {
-    commWindow.close();
-    commWindow = null;
-    if(messWindow){
-      messWindow.close();
-      messWindow = null;
-    }
-  });
-  ipc.on('minimize:comm', function(event, arg) {
-    commWindow.minimize();
-  });
 
-  ipc.on('close:mess', function(event, arg) {
-    messWindow.close();
-    messWindow = null;
-  });
-  ipc.on('minimize:mess', function(event, arg) {
-    messWindow.minimize();
-  });
-
-  ipc.on('open:comm', function(event, arg) {
-
-    loginWindow.close();
-    loginWindow = null;
-
-    commWindow = new BrowserWindow({
-      width: 300
-      ,height: 900
-      ,x: 1500
-      ,y: 30
-      ,min_width: 260
-      ,min_height: 600
-      ,max_width: 550
-      ,max_height: 900
+  // Emitted when the window is closed.
+  ipcMain.on('openChat', function(event, arg) {
+    var username = arg;
+    chatWindow = new BrowserWindow({
+      width: 940
+      ,height: 520
       ,frame: false
+      ,resizable: false
+      ,transparent: true
       ,icon: ico
     });
-    commWindow.loadUrl('file://' + __dirname + '/pages/comm.html');
+    chatWindow.hide();
+    chatWindow.loadURL('file://' + __dirname + '/app/admin.html');
+    setTimeout(function(){
+      mainWindow.close();
+      mainWindow = null;
+      chatWindow.show();
+      chatWindow.webContents.send('post-username', arg);
+      // chatWindow.openDevTools();
+    },2000);
 
   });
-  //打开聊天窗口
-  ipc.on('open:mess', function(event, arg) {
-    var name = arg;
-    if(messWindow){
-        messWindow.setContentSize(880, 510);
-        messWindow.setMaximumSize(880, 510);
-        messWindow.setMinimumSize(880, 510);
-        messWindow.webContents.send('show:left', name);
+
+  // shwo console
+  ipcMain.on('openDevTools', function(){
+    if (mainWindow) {
+      mainWindow.openDevTools();
     }
-    else{
-      messWindow = new BrowserWindow({
-        width: 700
-        ,height: 510
-        ,min_width: 700
-        ,min_height: 510
-        ,max_width: 700
-        ,max_height: 510
-        ,frame: false
-        ,icon: ico
-      });
-      messWindow.loadUrl('file://' + __dirname + '/pages/message.html');
-      setTimeout(function(){
-        messWindow.webContents.send('transfer:name', name);
-      },500);
-      
+    if (chatWindow) {
+      chatWindow.openDevTools();
     }
-  });  
+  });
+
+  ipcMain.on('close-main', function(event, arg) {
+    chatWindow.close();
+    chatWindow = null;
+  });
+
+  ipcMain.on('max-main', function(event, arg) {
+    chatWindow.maximize();
+  });
+
+  ipcMain.on('min-main', function(event, arg) {
+    chatWindow.minimize();
+  });
 
 });
-
