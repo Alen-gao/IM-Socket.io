@@ -2,10 +2,6 @@
 
 #基于 Socket.io electron  开发的一个即时聊天
 
-<img src="https://raw.githubusercontent.com/Alen-gao/IM-Socket.io/dev/login.jpg">
-
-<img src="https://raw.githubusercontent.com/Alen-gao/IM-Socket.io/dev/message.jpg">
-
 ##代码演示
 
 server
@@ -33,3 +29,8 @@ $ electron .
 - 单聊，群聊功能
 - 完成文字消息,图片消息
 - 文件传输
+
+##界面展示
+<img src="https://raw.githubusercontent.com/Alen-gao/IM-Socket.io/dev/login.jpg">
+
+<img src="https://raw.githubusercontent.com/Alen-gao/IM-Socket.io/dev/message.jpg">
