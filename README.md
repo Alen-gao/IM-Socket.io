@@ -1,19 +1,14 @@
-# IM-Socket.io
-
 # 基于 Socket.io electron  开发的一个即时聊天
 
 ## 代码演示
 
 server
-
-```plain
 $ cd srever
 $ npm install 
 $ node index.js
 ```
 
 client
-```plain
 $ cd client
 $ npm install 
 $ electron .
