@@ -3,12 +3,14 @@
 ## 代码演示
 
 server
+```
 $ cd srever
 $ npm install 
 $ node index.js
 ```
 
 client
+```
 $ cd client
 $ npm install 
 $ electron .
