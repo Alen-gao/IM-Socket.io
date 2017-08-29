@@ -1,6 +1,5 @@
 node_modules/
 client/OutApp/
-client/npm-debug.log
 build/
 *.mp3
 *.cmd
