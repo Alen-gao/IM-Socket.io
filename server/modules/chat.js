@@ -1,10 +1,7 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
-app.get('/', function(req, res){
-	res.send('<h1>Welcome Realtime Server</h1>');
-});
+// app.use('/users', users);
 
 //在线用户
 var onlineUsers = {};
@@ -13,13 +10,11 @@ var users = {};
 var onlineCount = 0;
 
 io.on('connection', function(socket){
-	console.log('a user connected');
-
-	socket.on('private message', function (from,to,msg) {
+	
+	socket.on('chat', function (from,to,msg) {
 	    // console.log('I received a private message by ', from, ' say to ',to, msg);
-	    if(to in users){
-	        users[to].emit('to'+to,{mess:msg});
-	    }
+        io.emit('to'+to,{message:msg.content});
+        
 	});
 	  //将用户加入到用户列表
 	socket.on('new user',function(data){
@@ -44,9 +39,9 @@ io.on('connection', function(socket){
 			onlineCount++;
 		}
 		
-		//向所有客户端广播用户加入
+		//向所有客户端广播用户上线
 		io.emit('login', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-		console.log(obj.username+'加入了聊天室');
+		// console.log(obj.username+'加入了聊天室');
 	});
 	
 	//监听用户退出
@@ -61,21 +56,30 @@ io.on('connection', function(socket){
 			//在线人数-1
 			onlineCount--;
 			
-			//向所有客户端广播用户退出
+			//向所有客户端广播用户下线
 			io.emit('logout', {onlineUsers:onlineUsers, onlineCount:onlineCount, user:obj});
-			console.log(obj.username+'退出了聊天室');
+			// console.log(obj.username+'退出了聊天室');
 		}
 	});
 	
-	//监听用户发布聊天内容
-	socket.on('message', function(obj){
+	//监听群聊天
+	//监听讨论组聊天
+	//监听广播
+	socket.on('group', function(obj){
 		//向所有客户端广播发布的消息
 		io.emit('message', obj);
-		console.log(obj.username+'说：'+obj.content);
+		// console.log(obj.username+'说：'+obj.content);
+	});
+	socket.on('muc', function(obj){
+		//向所有客户端广播发布的消息
+		io.emit('message', obj);
+		// console.log(obj.username+'说：'+obj.content);
+	});
+
+	socket.on('broadcast', function(obj){
+		//向所有客户端广播发布的消息
+		io.emit('broadcast', obj);
+		// console.log(obj.username+'说：'+obj.content);
 	});
   
-});
-
-http.listen(3000, function(){
-	console.log('listening on *:3000');
 });
