@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="前端开发,前端,wordpress主题,浩子,大前端,css教程">
+    <meta name="description" content="大前端是一个关注前端开发、用户体验设计、HTML5、CSS3、Javascript的前端开发独立博客。">
+    <title>Web front end development</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/css.css">
+    <style type="text/css">
+        body {
+            background-position: center;
+            background-image: url(/images/back.jpg);
+        } 
+    </style>
+    <script type="text/javascript" src="/javascripts/config.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/vue.min.js"></script>
+    <script type="text/javascript" src="/javascripts/vue-resource.js"></script>
+</head>
+<body>
+  <div id="regsiter" class="adduser">
+    <div>
+      <input type="text" class="J-User" placeholder="用户名"  v-model="username" />
+    </div>
+    <div>
+      <input type="password" class="J-Pass" placeholder="密码 " v-model="password" />
+    </div>
+    <div>
+      <input type="text" class="J-Nick" placeholder="请输入昵称 " v-model="nickname" />
+    </div>
+    <div>
+      <input type="text" class="J-Nick" placeholder="请输入昵称 " v-model="img" />
+    </div>
+    <button class="J-Regsiter regsiter" @click="regsiter">注册</button>
+  </div>
+  <script type="text/javascript">
+    new Vue({
+      el: '#regsiter',
+      data: {
+        username: '',
+        password: '',
+        nickname: '',
+        img: 'img/08.gif'
+      },
+      created(){
+      },
+      methods: {
+      },
+      methods: {
+        addClass(el){
+          console.log('el', el);
+        },
+        regsiter(){
+          if (this.username!='' && this.password !='') {
+            let user = {
+              username: this.username,
+              password: this.password,
+              nickname: this.nickname,
+              img: this.img
+            }
+            this.$http.post('/savesign',user,{emulateJSON:true}).then(function(res){
+              console.log('res', res.body.data);
+            },function(res){
+              console.log(res.status);
+            });
+          }
+        }
+      }
+    });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+
+<div id="addClass" class="topic userinfo hot-post">
+  <div class="addmenu-box fl">
+    <div>登录名称： <input type="text" placeholder="请输入登录名称" class="atom-input-radius" v-model="username" /></div>
+    <div>登录密码： <input type="password" placeholder="请输入登录密码" class="atom-input-radius J-MenuVal" v-model="password" /></div>
+    <div>用户昵称： <input type="text" placeholder="请输入用户昵称" class="atom-input-radius" v-model="nickname" /></div>
+    <div>用户图像： <input type="text" placeholder="请输入用户图像" class="atom-input-radius" v-model="img" /></div>
+    <div>个性签名： <input type="text" placeholder="请输入个性签名" class="atom-input-radius" v-model="autograph" /></div>
+    <div class=" addMenu "><span class="atom-submit-radius atom-back-green J-AddMenu" @click="saveClass">提交</span></div>
+	</div>
+</div>
+<script type="text/javascript">
+  new Vue({
+    el: '#addClass',
+    data: {
+      userid: '',
+      username: '',
+      password: '',
+      nickname: '',
+      img: 'img/08.gif',
+      autograph: ''
+    },
+    created(){
+      this.initDate();
+    },
+    methods: {
+      // this.addClass()
+    },
+    methods: {
+    	initDate(){
+	      this.userid = config.GetQueryParam('uid');
+	      let obj = {
+	        userid: this.userid
+	      }
+	      if (this.userid) {
+	        this.$http.post('/loaduser',obj,{emulateJSON:true}).then(function(res){
+	          this.title = res.body.result[0].title;
+	          this.img = res.body.result[0].img;
+            this.username = res.data.result[0].username;
+            this.password = res.data.result[0].password;
+            this.nickname = res.data.result[0].nickname;
+            this.img = res.body.result[0].img;
+            this.autograph = res.body.result[0].autograph;
+	        },function(res){
+	          console.log(res.status);
+	        });
+	      }
+	    },
+      saveClass(){
+      	var obj = {
+      		username: this.username,
+          password: this.password,
+          nickname: this.nickname,
+          img: this.img,
+          autograph: this.autograph
+      	}
+        if (this.userid) {
+          obj.id = this.userid;
+        }
+        let url = this.userid ? '/updataUser' : '/saveUser';
+        this.$http.post(url,obj,{emulateJSON:true}).then(function(res){
+            // this.userList = res.body.data.result;
+          if (res.body.code) {
+            layer.alert(res.body.message, function(){
+              window.location.reload();
+            });
+          } else {
+            layer.alert(res.body.message);
+          }
+        },function(res){
+          console.log(res.status);
+        });
+      }
+    }
+  });
+</script>

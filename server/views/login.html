@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="前端开发,前端,wordpress主题,浩子,大前端,css教程">
+    <meta name="description" content="大前端是一个关注前端开发、用户体验设计、HTML5、CSS3、Javascript的前端开发独立博客。">
+    <title>Web front end development</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/css.css">
+    <style type="text/css">
+        body {
+            background-position: center;
+            background-image: url(/images/back.jpg);
+        } 
+    </style>
+    <script type="text/javascript" src="/javascripts/config.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/vue.min.js"></script>
+    <script type="text/javascript" src="/javascripts/vue-resource.js"></script>
+</head>
+<body id="login">
+<div class="login">
+    <div><input type="text" placeholder="请输入用户名" v-model="username"  /></div>
+    <div><input type="password" placeholder="请输入密码"  v-model="password" /></div>
+    <div><span class="atom-submit-radius atom-back-red login-but J-Login" @click="login">登录</span></div>
+    <div class="login-hint">{{loginhint}}</div>
+</div>
+</div>
+<script type="text/javascript">
+  new Vue({
+    el: '#login',
+    data: {
+      username: '',
+      password: '',
+      loginhint: ''
+    },
+    created(){
+      
+    },
+    methods: {
+      // this.addClass()
+    },
+    methods: {
+      addClass(el){
+        console.log('el', el);
+      },
+      login(){
+        if (this.username!='' && this.password !='') {
+            let user = {
+                username: this.username,
+                password: this.password
+            }
+            this.$http.post('/signin',user,{emulateJSON:true}).then(function(res){
+              console.log('res', res.body);
+              if (res.body.code && res.body.signin) {
+                window.location.href = '/userlist';
+              }
+            },function(res){
+              console.log(res.status);
+            });
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

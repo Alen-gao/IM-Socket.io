@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="基于socket.io和electron 开发的一个即时聊天">
+    <title>IM-Socket.io后台管理系统</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/css.css">
+    <link rel="stylesheet" href="/layer/mobile/need/layer.css">
+    <style type="text/css">
+        body {
+            background-position: center;
+            background-image: url(/images/back.jpg);
+        } 
+    </style>
+    <script type="text/javascript" src="/javascripts/config.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/vue.min.js"></script>
+    <script type="text/javascript" src="/javascripts/vue-resource.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+</head>
+<body>
+<!-- header html start -->
+<header class="sizing">
+    <div class="fl">
+        <a href="/userlist">IM-Socket.io后台管理系统</a>
+    </div>
+</header>
+<!-- @header end -->
+
+<!-- main html start -->
+<section class="main sizing J-One">
+   
+    <!-- menu html start -->
+    <div class="fl menu">
+        <!-- <div class="view active">
+            <a href="/personal"><span class="cate-name ng-binding" ng-bind="item.name">作品分类管理</span></a>
+        </div> -->
+        <% if (current =='userlist') { %>
+            <div class="view active">
+                <a href="/userlist"><span class="cate-name ng-binding" ng-bind="item.name">用户列表</span></a>
+            </div>
+        <% } else { %>
+            <div class="view">
+                <a href="/userlist"><span class="cate-name ng-binding" ng-bind="item.name">用户列表</span></a>
+            </div>
+        <% } %>
+
+        <% if (current =='adduser') { %>
+            <div class="view active">
+                <a href="/adduser"><span class="cate-name ng-binding" ng-bind="item.name">添加用户</span></a>
+            </div>
+        <% } else { %>
+            <div class="view ">
+                <a href="/adduser"><span class="cate-name ng-binding" ng-bind="item.name">添加用户</span></a>
+            </div>
+        <% } %>
+
+        
+
+    </div>
+    <!-- @menu end -->
+
+    <!-- contnet html start -->
+    <div class="content">
+        <div class="list-page-table-nav">
+            <h2 class="crumbs">
+                <%= crumbs %>
+            </h2>
+            <div class="create-handle">
+                <a href="<%= href %>" class="atom-submit-radius atom-back-red"><%= crumbsTitle %></a>
+            </div>
+        </div>
+        <div class="content-box">
+            <%-body%>
+        </div>
+    </div>
+    <!-- @contnet end -->
+
+</section>
+
+
+</div>
+</body>
+</html>

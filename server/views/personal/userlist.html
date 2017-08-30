@@ -1,0 +1,69 @@
+<div id="classify">
+    <div class="list-page-table-header">
+        <div class="row">
+            <div class="col col-1">用户名</div>
+            <div class="col col-2">个性签名</div>
+            <div class="col col-3">用户昵称</div>
+            <div class="col col-4">用户图像</div>
+            <div class="col col-5">操作</div>
+        </div>
+    </div>
+
+    <div class="list-page-table-content ps-container" v-for="item in userList">
+        <div class="row J_list_item active" >
+            <div class="col col-1">{{item.username}}</div>
+            <div class="col col-2">{{item.autograph}}</div>
+            <div class="col col-3">{{item.nickname}}</div>
+            <div class="col col-4"><img v-bind:src="item.img" /></div>
+            <div class="col col-5">
+                <!-- <a href="/adduser?uid={{item.userid}}">编辑</a> -->
+                <span @click="delUser(item)">删除</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    new Vue({
+        el: '#classify',
+        data: {
+            userList: null
+        },
+        created(){
+            this.loadClass();
+        },
+        methods: {
+            // delUser(item){
+            // var index = this.userList.indexOf(item);
+            // this.userList.splice(index, 1);
+        },
+        methods: {
+            loadClass(){
+                this.$http.post('/loaduser',{},{emulateJSON:true}).then(function(res){
+                    this.userList = res.body.result;
+                },function(res){
+                    console.log(res.status);
+                });
+            },
+            delUser(item){
+                let obj = {
+                    _id: item._id
+                }
+                let _this = this;
+                layer.alert('删除以后无法恢复，是否删除？', function(){
+                    _this.$http.post('/delUser',obj,{emulateJSON:true}).then(function(res){
+                        if (res.body.code) {
+                            layer.alert(res.body.message, function(){
+                                let index = _this.userList.indexOf(item);
+                                _this.userList.splice(index, 1);
+                            })
+                        } else {
+                            layer.alert(res.body.data.message);
+                        }
+                    },function(res){
+                        console.log(res.status);
+                    });
+                });
+            }
+        }
+    });
+</script>
