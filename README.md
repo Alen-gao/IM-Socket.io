@@ -6,7 +6,7 @@ server
 ```
 $ cd srever
 $ npm install 
-$ node index.js
+$ node start
 ```
 
 client
