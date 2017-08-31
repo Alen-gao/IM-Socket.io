@@ -32,6 +32,7 @@ var upload = multer({
 
 /* GET home page. */
 router.get('/', allRoute.index);
+router.get('/saveUser', allRoute.saveUser);
 router.get('/userlist', allRoute.userlist);
 router.get('/adduser', allRoute.adduser);
 router.get('/register', allRoute.register);

@@ -14,7 +14,7 @@
             <div class="col col-1">{{item.username}}</div>
             <div class="col col-2">{{item.autograph}}</div>
             <div class="col col-3">{{item.nickname}}</div>
-            <div class="col col-4"><img v-bind:src="item.img" /></div>
+            <div class="col col-4"><span class="user-img"><img v-bind:src="item.img | purifyimg" /></span></div>
             <div class="col col-5">
                 <!-- <a href="/adduser?uid={{item.userid}}">编辑</a> -->
                 <span @click="delUser(item)">删除</span>
@@ -35,6 +35,11 @@
             // delUser(item){
             // var index = this.userList.indexOf(item);
             // this.userList.splice(index, 1);
+        },
+        filters: {
+            purifyimg:(img)=>{
+                return img.replace('img', 'images')
+            }
         },
         methods: {
             loadClass(){

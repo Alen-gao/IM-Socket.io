@@ -5,7 +5,6 @@ var userDb = require('../modules/userdb'),
     messageDb = require('../modules/message');
 
 module.exports = {
-    // 广告接口
     index: function(req, res, next){
       res.render('login', { title: '用户登录', layout: false });
     },
