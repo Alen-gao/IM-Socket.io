@@ -44,6 +44,7 @@ router.post('/savesign', allRoute.saveSign);
 
 router.post('/saveUser', allRoute.saveUser);
 router.post('/delUser', allRoute.delUser);
+router.post('/loginuser', allRoute.loginUser);
 router.post('/loaduser', allRoute.loadUser);
 router.post('/updataUser', allRoute.updataUser);
 router.post('/upload', upload.single('file'), allRoute.upload);

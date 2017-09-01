@@ -75,6 +75,37 @@ module.exports = {
         }
         
     },
+    loginUser: function(req, res, next){
+        var param  = req.method == "POST" ? req.body : (req.query || req.params);
+        if (!param.username || param.username =='') {
+            console.log('param', param);
+            res.send({code:0, message: '清输入登录名！' });
+        } else {
+            console.log('param', param);
+            userDb.load({'username':param.username}, function(err, data){
+                if (err) {
+                    res.send({code:0, result:err, message: '加载失败！' });
+                } else {
+                    console.log('data[0].username', data[0].username);
+                    console.log('data[0].password', data[0].password);
+                    if (data[0].username==param.username && data[0].password == param.password) {
+                        var result = {
+                            userid:data[0].userid,
+                            username:data[0].username,
+                            password:data[0].password,
+                            nickname:data[0].nickname,
+                            img:data[0].img,
+                            autograph:data[0].autograph,
+                            time:data[0].time
+                        }
+                        res.send({code:1, message: '登录成功！',result: result  });
+                    } else {
+                        res.send({code:0, message: '用户名/密码错误！' });
+                    }
+                }
+            });
+        }
+    },
     loadUser: function(req, res, next){
         var param  = req.method == "POST" ? req.body : (req.query || req.params);
         if (req.session.username) {
@@ -86,7 +117,7 @@ module.exports = {
                 }
             });
         } else {
-            res.send({code:0, message: '加载成功！', result:data });
+            res.send({code:0, message: '加载成功！' });
         }
     },
     updataUser: function(req, res, next){
