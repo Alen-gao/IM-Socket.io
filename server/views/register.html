@@ -11,7 +11,7 @@
     <style type="text/css">
         body {
             background-position: center;
-            background-image: url(/images/back.jpg);
+            /*background-image: url(/images/back.jpg);*/
         } 
     </style>
     <script type="text/javascript" src="/javascripts/config.js"></script>
@@ -21,6 +21,8 @@
 </head>
 <body>
   <div id="regsiter" class="adduser">
+    <div style="font-size: 32px; color: #333; margin-bottom: 30px;">欢迎注册</div>
+    <div style="font-size: 20px; color: #333; margin-bottom: 30px;">乐在其中，乐在沟通！</div>
     <div>
       <input type="text" class="J-User" placeholder="用户名"  v-model="username" />
     </div>
@@ -31,9 +33,14 @@
       <input type="text" class="J-Nick" placeholder="请输入昵称 " v-model="nickname" />
     </div>
     <div>
-      <input type="text" class="J-Nick" placeholder="请输入昵称 " v-model="img" />
+      <input type="text" class="J-Autograph" placeholder="请输入个性签名 " v-model="autograph" />
     </div>
-    <button class="J-Regsiter regsiter" @click="regsiter">注册</button>
+    <div class="user-img">
+      <div v-for="img  in userimg" @click="SelUserImg(img)">
+        <img v-bind:src="img" />
+      </div>
+    </div>
+    <button class="J-Regsiter regsiter" @click="regsiter">立即注册</button>
   </div>
   <script type="text/javascript">
     new Vue({
@@ -42,7 +49,9 @@
         username: '',
         password: '',
         nickname: '',
-        img: 'img/08.gif'
+        autograph: '',
+        userimg: ['/images/01.gif','/images/02.gif','/images/03.gif','/images/04.gif','/images/05.gif','/images/06.gif','/images/07.gif','/images/08.gif'],
+        img: '/images/01.gif'
       },
       created(){
       },
@@ -52,16 +61,20 @@
         addClass(el){
           console.log('el', el);
         },
+        SelUserImg(img,index){
+          this.img = img;
+        },
         regsiter(){
           if (this.username!='' && this.password !='') {
             let user = {
               username: this.username,
               password: this.password,
               nickname: this.nickname,
+              autograph: this.autograph,
               img: this.img
             }
-            this.$http.post('/savesign',user,{emulateJSON:true}).then(function(res){
-              console.log('res', res.body.data);
+            this.$http.post('/saveUser',user,{emulateJSON:true}).then(function(res){
+              console.log('res', res.body.message);
             },function(res){
               console.log(res.status);
             });

@@ -221,7 +221,7 @@ body {
 	padding: 40px;
 	margin: 0 auto;
 	border-radius: 10px;
-	margin-top: 10%;
+	margin-top: 8%;
 	background-color: rgba(255, 255, 255, 0.9);
 }
 .adduser input {
@@ -245,9 +245,20 @@ body {
 	border: none;
 	cursor: pointer;
 	font-family: "Microsoft YaHei";
-	background-color: #396c5d;
+	background-color: #fa656e;
 }
-
+.adduser .user-img > div {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	border-radius: 40px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	display: inline-block;
+}
+.adduser .user-img img {
+	max-width: 100%;
+}
 
 
 

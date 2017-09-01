@@ -46,9 +46,9 @@ module.exports = {
                 res.send({code:0, data:{result: err, message: '登录失败！'} });
             } else {
                 if (data) {
-                    req.session.username = data[0].username;
+                    req.session.username = param.username;
                     console.log('req.session.username', req.session.username);
-                    res.send({code:1, signin:true, data:{result:data[0].username, message: '登录成功！'} });
+                    res.send({code:1, signin:true, data:{result:param.username, message: '登录成功！'} });
                 } else {
                     res.send({code:1, signin:false, data:{result:'', message: '用户名或者密码错误！'} });
                 }
