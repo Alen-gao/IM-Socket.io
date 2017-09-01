@@ -98,7 +98,7 @@ module.exports = {
                             autograph:data[0].autograph,
                             time:data[0].time
                         }
-                        res.send({code:1, message: '登录成功！',result: result  });
+                        res.send({code:1, message: '登录成功！',result: result  }); 
                     } else {
                         res.send({code:0, message: '用户名/密码错误！' });
                     }
