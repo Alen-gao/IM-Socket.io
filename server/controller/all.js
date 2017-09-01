@@ -86,8 +86,6 @@ module.exports = {
                 if (err) {
                     res.send({code:0, result:err, message: '加载失败！' });
                 } else {
-                    console.log('data[0].username', data[0].username);
-                    console.log('data[0].password', data[0].password);
                     if (data[0].username==param.username && data[0].password == param.password) {
                         var result = {
                             userid:data[0].userid,
