@@ -119,6 +119,7 @@ body{
   position: relative;
   border-radius: 56px;
   padding: 8px;
+  overflow: hidden;
   margin-bottom: 2px;
 }
 .left .item .drag{
@@ -188,10 +189,8 @@ body{
 }
 .left li div{
   height: 40px;
-  float: left;
   line-height: 12px;
-  margin-left: 10px;
-  display: inline-block;
+  margin-left: 60px;
 }
 .left div strong{
   font-weight: inherit;

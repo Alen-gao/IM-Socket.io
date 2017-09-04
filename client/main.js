@@ -22,16 +22,15 @@ const BrowserWindow = electron.BrowserWindow;
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 let tray = null;
+let mainWindow = null;
 let chatWindow = null;
-// ipc.on('openDevTools', function(){
-        
-    // });
+// ipc.on('openDevTools');
 
 app.on('ready', function() {
   
   // IM icon 
   var ico = path.join(__dirname, 'app/img', 'ico.png');
-  var mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 360
     ,height: 300
     ,transparent: true
@@ -44,8 +43,8 @@ app.on('ready', function() {
 
   // IM menu
 
+  // mainWindow.openDevTools();
   
-
 
 
   tray = new Tray(ico);
@@ -79,8 +78,15 @@ app.on('ready', function() {
       accelerator: 'Command+Q',
       selector: 'terminate:',
       click: function() {
-        mainWindow.close();
-        mainWindow = null;
+        if (mainWindow) {
+          mainWindow.close();
+          mainWindow = null;
+        }
+        if (chatWindow) {
+          chatWindow.close();
+          chatWindow = null;
+        }
+        
       }
     }
   ])
@@ -90,7 +96,7 @@ app.on('ready', function() {
 
 
   // Emitted when the window is closed.
-  ipcMain.on('openChat', function(event, arg) {
+  ipcMain.on('openChat', (event, arg)=> {
     var username = arg;
     chatWindow = new BrowserWindow({
       width: 940
@@ -113,7 +119,7 @@ app.on('ready', function() {
   });
 
   // shwo console
-  ipcMain.on('openDevTools', function(){
+  ipcMain.on('openDevTools', ()=> {
     if (mainWindow) {
       mainWindow.openDevTools();
     }
@@ -122,16 +128,16 @@ app.on('ready', function() {
     }
   });
 
-  ipcMain.on('close-main', function(event, arg) {
+  ipcMain.on('close-main', (event, arg)=> {
     chatWindow.close();
     chatWindow = null;
   });
 
-  ipcMain.on('max-main', function(event, arg) {
+  ipcMain.on('max-main', (event, arg)=> {
     chatWindow.maximize();
   });
 
-  ipcMain.on('min-main', function(event, arg) {
+  ipcMain.on('min-main', (event, arg)=> {
     chatWindow.minimize();
   });
 

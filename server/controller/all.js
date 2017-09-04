@@ -106,7 +106,7 @@ module.exports = {
     },
     loadUser: function(req, res, next){
         var param  = req.method == "POST" ? req.body : (req.query || req.params);
-        if (req.session.username) {
+        // if (req.session.username) {
             userDb.load(param, function(err, data){
                 if (err) {
                     res.send({code:0, result:err, message: '加载失败！' });
@@ -114,9 +114,9 @@ module.exports = {
                     res.send({code:1, result:data, message: '加载成功！' });
                 }
             });
-        } else {
-            res.send({code:0, message: '加载成功！' });
-        }
+        // } else {
+        //     res.send({code:0, message: '加载成功！' });
+        // }
     },
     updataUser: function(req, res, next){
         var param  = req.method == "POST" ? req.body : (req.query || req.params);

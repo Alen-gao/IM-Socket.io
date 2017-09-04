@@ -1,21 +1,23 @@
 const ipcRenderer = require('electron').ipcRenderer;
 // var win = gui.Window.get();
-
-// window.addEventListener('keydown', function(event){
-//   if((event.ctrlKey) && event.shiftKey && event.keyCode==73){
-//       win.showDevTools();
-//   }
-// });
+var uid = window.localStorage.getItem('uid')+'';
+var current = window.localStorage.getItem('current')+'';
+console.log('current', current);
+window.addEventListener('keydown', function(event){
+  if(event.ctrlKey && event.shiftKey){
+    ipcRenderer.send('openDevTools');
+  }
+});
 var converId = null;
 (function () {
 	var d = document,
-	w = window,
-	p = parseInt,
-	dd = d.documentElement,
-	db = d.body,
-	dc = d.compatMode == 'CSS1Compat',
-	dx = dc ? dd: db,
-	ec = encodeURIComponent;
+			w = window,
+			p = parseInt,
+			dd = d.documentElement,
+			db = d.body,
+			dc = d.compatMode == 'CSS1Compat',
+			dx = dc ? dd: db,
+			ec = encodeURIComponent;
 	
 	
 	w.CHAT = {
@@ -27,7 +29,9 @@ var converId = null;
 		socket:null,
 		//让浏览器滚动条保持在最低部
 		scrollToBottom:function(){
-			w.scrollTo(0, this.msgObj.clientHeight);
+			setTimeout(function(){
+				d.getElementById("message").scrollTop = 1000000000;
+			},120);
 		},
 		//退出，本例只是一个简单的刷新
 		logout:function(){
@@ -36,40 +40,24 @@ var converId = null;
 		},
 		//提交聊天消息内容
 		submit:function(){
-			var content = d.getElementById("textarea").value;
+			var content = d.getElementById("textarea").innerText;
+					current = window.localStorage.getItem('current')+'';
 			if(content != ''){
 				var obj = {
 					userid: this.userid,
 					username: this.username,
 					content: content
 				};
-				if(this.username == 'Allen'){
-					this.socket.emit('chat', 'Allen', 'Nancy' ,obj);
-
-					var section = d.createElement('div');
-					var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><p class="mess-cont">'+content+'</p>';
-					section.className = 'mess-right';
-					section.innerHTML = contentDiv;
-					CHAT.msgObj.appendChild(section);
-
-					d.getElementById("textarea").value = '';
-					return false;
-				}
-				else if(this.username == 'Nancy'){
-					this.socket.emit('chat', 'Nancy', 'Allen' ,obj);
-					
-					var section = d.createElement('div');
-					var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+content+'</p>';
-					section.className = 'mess-right';
-					section.innerHTML = contentDiv;
-					CHAT.msgObj.appendChild(section);
-
-					d.getElementById("textarea").value = '';
-					CHAT.scrollToBottom();
-					return false;
-				}
+				this.socket.emit('send', uid, current ,obj);
+				var section = d.createElement('div');
+				var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><p class="mess-cont">'+content+'</p>';
+				section.className = 'mess-right';
+				section.innerHTML = contentDiv;
+				CHAT.msgObj.appendChild(section);
+				// console.log('obj', obj, contentDiv);
 				this.socket.emit('broadcast', obj);
-				d.getElementById("textarea").value = '';
+				d.getElementById("textarea").innerHTML = '';
+				this.scrollToBottom();
 			}
 			return false;
 		},
@@ -123,11 +111,13 @@ var converId = null;
 			客户端根据时间和随机数生成uid,这样使得聊天室用户名称可以重复。
 			实际项目中，如果是需要用户登录，那么直接采用用户的uid来做标识就可以
 			*/
-			this.userid = this.genUid();
+			this.userid = uid;
 			this.username = username;
 			
 			//连接websocket后端服务器
-			this.socket = io.connect('http://socket.nodegeek.org/');
+			// this.socket = io.connect('http://socket.nodegeek.org/');
+			this.socket = io.connect('http://io.nodegeek.org/');
+			
 			
 			//告诉服务器端有用户登录
 			this.socket.emit('login', {userid:this.userid, username:this.username});
@@ -141,46 +131,36 @@ var converId = null;
 			this.socket.on('logout', function(o){
 				CHAT.updateSysMsg(o, 'logout');
 			});
-			if(this.username=='Allen'){
-				this.socket.on('toAllen', function (data) {
-		            var section = d.createElement('div');
-					var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+data.message+'</p>';
-					section.className = 'mess-left';
-					section.innerHTML = contentDiv;
-					CHAT.msgObj.appendChild(section);
-					CHAT.scrollToBottom();
-		        });
-			}
-			else if(this.username=='Nancy'){
-				this.socket.on('toNancy', function (data) {
-		            var section = d.createElement('div');
-					var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><p class="mess-cont">'+data.message+'</p>';
-					section.className = 'mess-left';
-					section.innerHTML = contentDiv;
-					CHAT.msgObj.appendChild(section);
-					CHAT.scrollToBottom();
-		        });
-			}
-			
+			console.log('接受消息', 'collect'+uid);
+			this.socket.on('collect'+uid, function (data) {
+				console.log('data', data, uid);
+	      var section = d.createElement('div');
+				var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+data.message+'</p>';
+				section.className = 'mess-left';
+				section.innerHTML = contentDiv;
+				CHAT.msgObj.appendChild(section);
+				CHAT.scrollToBottom();
+      });
 			
 			//监听消息发送 <span>'+obj.username+'</span> <div></div>
-			this.socket.on('broadcast', function(obj){
-				var isme = (obj.userid == CHAT.userid) ? true : false;
-				// var usernameDiv = '<div  class="mess-cont"><p>'+obj.username+'</p><div>'+obj.content+'</div></div>';
+			// this.socket.on('broadcast', function(obj){
+			// 	console.log('obj222', obj);
+			// 	var isme = (obj.userid == CHAT.userid) ? true : false;
+			// 	// var usernameDiv = '<div  class="mess-cont"><p>'+obj.username+'</p><div>'+obj.content+'</div></div>';
 				
-				var section = d.createElement('div');
-				if(isme){
-					var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+obj.content+'</p>';
-					section.className = 'mess-right';
-					section.innerHTML = contentDiv;
-				} else {
-					var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><p class="mess-cont">'+obj.content+'</p>';
-					section.className = 'mess-left';
-					section.innerHTML = contentDiv;
-				}
-				CHAT.msgObj.appendChild(section);
-				CHAT.scrollToBottom();	
-			});
+			// 	var section = d.createElement('div');
+			// 	if(isme){
+			// 		var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+obj.content+'</p>';
+			// 		section.className = 'mess-right';
+			// 		section.innerHTML = contentDiv;
+			// 	} else {
+			// 		var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><p class="mess-cont">'+obj.content+'</p>';
+			// 		section.className = 'mess-left';
+			// 		section.innerHTML = contentDiv;
+			// 	}
+			// 	CHAT.msgObj.appendChild(section);
+			// 	CHAT.scrollToBottom();	
+			// });
 
 		}
 	};
