@@ -40,7 +40,6 @@ app.on('ready', function() {
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/app/login.html');
-
   // IM menu
 
   // mainWindow.openDevTools();
@@ -126,6 +125,11 @@ app.on('ready', function() {
     if (chatWindow) {
       chatWindow.openDevTools();
     }
+  });
+
+  ipcMain.on('close-login', (event, arg)=> {
+    mainWindow.close();
+    mainWindow = null;
   });
 
   ipcMain.on('close-main', (event, arg)=> {

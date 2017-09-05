@@ -6,7 +6,7 @@ server
 ```
 $ cd srever
 $ npm install 
-$ node start
+$ npm start
 ```
 
 client

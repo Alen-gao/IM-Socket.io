@@ -8,7 +8,23 @@
   background-color: #f2f2f2;
   border-radius: 5px;
   text-align: center;
+  position: relative;
   -webkit-app-region: drag;
+}
+.main .login-oper {
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  -webkit-app-region: no-drag;
+}
+.main .login-oper .login-close {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  vertical-align: top;
+  display: inline-block;
+  background-color: #d45850;
 }
 .main .ico{
   width: 120px;
@@ -89,10 +105,10 @@
   right: 5px;
   top: 5px;
 }
-.main .j-hide, .main .show{
+.main .jhide, .main .show{
   opacity: 0;
 }
-.main .j-late, .main .show{
+.main .jlate {
   transform: translate3D(0px, 60px, 0px);
   -webkit-transform: translate3D(0px, 60px, 0px);
 }
@@ -100,8 +116,10 @@
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
-.main .j-show{
+.main .jshow{
   opacity: 1;
+  transform: translate3D(0px, 60px, 0px);
+  -webkit-transform: translate3D(0px, 60px, 0px);
 }
 .main .submit i{
   width: 10px;
