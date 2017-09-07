@@ -136,6 +136,9 @@
 .main .jhide, .main .show{
   opacity: 0;
 }
+.main .show {
+  position: absolute;
+}
 .main .jlate {
   transform: translate3D(0px, 40px, 0px);
   -webkit-transform: translate3D(0px, 40px, 0px);
