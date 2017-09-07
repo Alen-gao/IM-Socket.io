@@ -21,12 +21,9 @@ var onlineCount = 0;
 io.on('connection', function(socket){
     
     socket.on('send', function (f,t,msg) {
-        // console.log('I received a private message by ', from, ' say to ',to, msg);
-        console.log('collect', 'collect'+t);
-        io.emit('collect'+t,{message:msg.content, from:f, to:t});
-        
+        io.emit(t,{message:msg.content, from:f, to:t});
     });
-      //将用户加入到用户列表
+    //将用户加入到用户列表
     socket.on('new user',function(data){
          if(data in users){
              

@@ -1,4 +1,6 @@
 const ipcRenderer = require('electron').ipcRenderer;
+const shell = require('electron').shell;
+const links = document.querySelectorAll('a[href]')
 
 new Vue({
   el: '#login',
@@ -10,8 +12,20 @@ new Vue({
   },
   created(){
     this.openDevTools();
+    this.shellA();
   },
   methods: {
+  	shellA(){
+  		Array.prototype.forEach.call(links, function (link) {
+			  const url = link.getAttribute('href')
+			  if (url.indexOf('http') === 0) {
+			    link.addEventListener('click', function (e) {
+			      e.preventDefault()
+			      shell.openExternal(url)
+			    })
+			  }
+			})
+  	},
   	openDevTools(){
   		let _this = this;
   		window.addEventListener('keydown', function(event){
@@ -31,7 +45,7 @@ new Vue({
     		username: this.username,
     		password: this.password
     	}
-      this.$http.post('http://io.nodegeek.org/loginuser',obj,{emulateJSON:true}).then(function(res){
+      this.$http.post(config.server+'loginuser',obj,{emulateJSON:true}).then(function(res){
         this.userList = res.body.result;
         if (res.body.code) {
         	this.signin = true;

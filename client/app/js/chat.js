@@ -1,5 +1,4 @@
 const ipcRenderer = require('electron').ipcRenderer;
-// var win = gui.Window.get();
 var uid = window.localStorage.getItem('uid')+'';
 var current = window.localStorage.getItem('current')+'';
 console.log('current', current);
@@ -116,7 +115,7 @@ var converId = null;
 			
 			//连接websocket后端服务器
 			// this.socket = io.connect('http://socket.nodegeek.org/');
-			this.socket = io.connect('http://io.nodegeek.org/');
+			this.socket = io.connect(config.server);
 			
 			
 			//告诉服务器端有用户登录
@@ -131,8 +130,7 @@ var converId = null;
 			this.socket.on('logout', function(o){
 				CHAT.updateSysMsg(o, 'logout');
 			});
-			console.log('接受消息', 'collect'+uid);
-			this.socket.on('collect'+uid, function (data) {
+			this.socket.on(uid, function (data) {
 				console.log('data', data, uid);
 	      var section = d.createElement('div');
 				var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+data.message+'</p>';
@@ -142,26 +140,6 @@ var converId = null;
 				CHAT.scrollToBottom();
       });
 			
-			//监听消息发送 <span>'+obj.username+'</span> <div></div>
-			// this.socket.on('broadcast', function(obj){
-			// 	console.log('obj222', obj);
-			// 	var isme = (obj.userid == CHAT.userid) ? true : false;
-			// 	// var usernameDiv = '<div  class="mess-cont"><p>'+obj.username+'</p><div>'+obj.content+'</div></div>';
-				
-			// 	var section = d.createElement('div');
-			// 	if(isme){
-			// 		var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+obj.content+'</p>';
-			// 		section.className = 'mess-right';
-			// 		section.innerHTML = contentDiv;
-			// 	} else {
-			// 		var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><p class="mess-cont">'+obj.content+'</p>';
-			// 		section.className = 'mess-left';
-			// 		section.innerHTML = contentDiv;
-			// 	}
-			// 	CHAT.msgObj.appendChild(section);
-			// 	CHAT.scrollToBottom();	
-			// });
-
 		}
 	};
 	

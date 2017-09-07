@@ -4,13 +4,13 @@
 .main{
   width: 100%;
   height: 100%;
-  padding: 20px;
   background-color: #f2f2f2;
   border-radius: 5px;
   text-align: center;
   position: relative;
   -webkit-app-region: drag;
   overflow: hidden;
+  padding-top: 20px;
   // webkit-transform:rotateY(0deg);
   // -webkit-transform-style: preserve-3d;
   // -webkit-transition: all 1s;
@@ -137,8 +137,8 @@
   opacity: 0;
 }
 .main .jlate {
-  transform: translate3D(0px, 60px, 0px);
-  -webkit-transform: translate3D(0px, 60px, 0px);
+  transform: translate3D(0px, 40px, 0px);
+  -webkit-transform: translate3D(0px, 40px, 0px);
 }
 .main .hide, .main .ico, .main .show{
   transition: all 0.5s;
@@ -149,8 +149,8 @@
   opacity: 1;
   text-align: center;
   position: absolute;
-  transform: translate3D(0px, 60px, 0px);
-  -webkit-transform: translate3D(0px, 60px, 0px);
+  transform: translate3D(0px, 40px, 0px);
+  -webkit-transform: translate3D(0px, 40px, 0px);
 }
 .main .submit i{
   width: 10px;
