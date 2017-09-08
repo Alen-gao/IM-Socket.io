@@ -1,5 +1,5 @@
 new Vue({
-  el: '#app',
+  el: '#chat',
   data: {
     userList: null,
     current: null,
@@ -30,9 +30,24 @@ new Vue({
       });
     },
     toggleSession(item){
-      console.log('item', item.userid);
       this.current = item;
       window.localStorage.setItem('current', item.userid);
+    },
+    handleFileChange(){
+      let inputDOM = document.querySelector('.add-file');
+      this.file = inputDOM.files[0];
+      console.log('this.file', this.file);
+      let formData = new FormData();
+      formData.append('file',inputDOM.files[0]);
+      // this.errText = '';
+      // let size = Math.floor(this.file.size / 1024);
+      this.$http.post(config.server+'upload',formData,{emulateJSON:true}).then(function(res){
+        console.log('res.body.url', res.body.url);
+        let html = '<img src="'+res.body.url+'" /><div></div>';
+        document.getElementById("textarea").innerHTML+=html;  
+      },function(res){
+        console.log(res.status);
+      });
     }
   }
 });

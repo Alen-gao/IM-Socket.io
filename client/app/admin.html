@@ -10,7 +10,7 @@
     <script type="text/javascript" src="http://io.nodegeek.org/socket.io/socket.io.js"></script>
 </head>
 <body>
-<div class="main" id="app">
+<div class="main" id="chat">
   <!-- left dom start -->
   <div class="left">
     <!-- user Informat start -->
@@ -109,11 +109,12 @@
         <span class="face J-EditItem" unselectable="on" onmousedown="return false"></span>
         <span class="shake J-EditItem" unselectable="on" onmousedown="return false"></span>
         <span class="det J-EditItem" unselectable="on" onmousedown="return false"></span>
-        <span class="img J-EditItem" unselectable="on" onmousedown="return false"></span>
+        <span class="img J-EditItem" unselectable="on" onmousedown="return false"><input type="file" class="add-file" @change="handleFileChange" ref="inputer" /></span>
         <span class="cut J-EditItem" unselectable="on" onmousedown="return false"></span>
         <strong class="record fr">查看消息记录</strong>
       </div>
-      <div id="textarea" class="textarea J-Edit" contenteditable="true"></div>
+      <div id="textarea" class="textarea J-Edit" contenteditable="true">
+      </div>
     </div>
     <!-- bottom dom end -->
 

@@ -222,6 +222,7 @@ body{
   width: 100%;
   padding: 10px 0;
   min-height: 60px;
+  overflow: hidden;
   position: relative;
 }
 .mess-left .user-img, .mess-right .user-img{
@@ -243,6 +244,7 @@ body{
 }
 .mess-left .mess-cont,.mess-right .mess-cont{
   min-width: 40px;
+  max-width: 80%;
   min-height: 40px;
   display: inline-block;
   border-radius: 6px;
@@ -252,6 +254,9 @@ body{
   color: #333;
   position: relative;
   -webkit-user-select: initial;
+}
+.mess-left .mess-cont img ,.mess-right .mess-cont img {
+  max-width: 100%;
 }
 .mess-left .mess-cont:after,.mess-right .mess-cont:after{
   content: '';
@@ -411,7 +416,9 @@ body{
   width: 30px;
   height: 30px;
   cursor: pointer;
+  vertical-align: top;
   display: inline-block;
+  position: relative;
   background-image: url(../img/bar.png);
   background-repeat: no-repeat;
 }
@@ -442,6 +449,13 @@ body{
 .edit .bar .img{
   background-position: -115px -1px;
 }
+.edit .bar .img .add-file{
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 10;
+  opacity: 0;
+}
 .edit .bar .img:hover{
   background-position: -115px -30px;
 }
@@ -469,6 +483,8 @@ body{
   background-position: -183px -30px;
 }
 .edit .textarea{
+  color: #666;
+  font-size: 14px;
   padding: 5px 10px;
   width: 600px;
   line-height: 22px;
@@ -483,8 +499,10 @@ body{
   overflow: auto;
   display: block;
   word-wrap: break-word;
-  font-size: 16px;
   font-family: sans-serif;
+}
+.edit .textarea img {
+  max-height: 50px;
 }
 // .edit textarea{
 //   width: 600px;

@@ -39,17 +39,18 @@ var converId = null;
 		},
 		//提交聊天消息内容
 		submit:function(){
-			var content = d.getElementById("textarea").innerText;
+			var content = d.getElementById("textarea").innerHTML;
 					current = window.localStorage.getItem('current')+'';
 			if(content != ''){
 				var obj = {
+					type: 'text',
 					userid: this.userid,
 					username: this.username,
 					content: content
 				};
 				this.socket.emit('send', uid, current ,obj);
 				var section = d.createElement('div');
-				var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><p class="mess-cont">'+content+'</p>';
+				var contentDiv = '<span class="user-img"><img src="img/04.gif"></span><div class="mess-cont">'+content+'</div>';
 				section.className = 'mess-right';
 				section.innerHTML = contentDiv;
 				CHAT.msgObj.appendChild(section);
@@ -131,9 +132,8 @@ var converId = null;
 				CHAT.updateSysMsg(o, 'logout');
 			});
 			this.socket.on(uid, function (data) {
-				console.log('data', data, uid);
 	      var section = d.createElement('div');
-				var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><p class="mess-cont">'+data.message+'</p>';
+				var contentDiv = '<span class="user-img"><img src="img/03.gif"></span><div class="mess-cont">'+data.message+'</div>';
 				section.className = 'mess-left';
 				section.innerHTML = contentDiv;
 				CHAT.msgObj.appendChild(section);
@@ -148,12 +148,12 @@ var converId = null;
 		CHAT.usernameSubmit(message);
 	});
 	var username = window.localStorage.getItem("username");
-	d.getElementById("username").onkeydown = function(e) {
-		e = e || event;
-		if (e.keyCode === 13) {
-			CHAT.usernameSubmit(this.value);
-		}
-	};
+	// d.getElementById("username").onkeydown = function(e) {
+	// 	e = e || event;
+	// 	if (e.keyCode === 13) {
+	// 		CHAT.usernameSubmit(this.value);
+	// 	}
+	// };
 	//通过“回车”提交信息
 	d.getElementById("textarea").onkeydown = function(e) {
 		e = e || event;
