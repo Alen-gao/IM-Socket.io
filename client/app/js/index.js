@@ -8,6 +8,11 @@ new Vue({
   created(){
     this.loaduser();
   },
+  filters: {
+    filterImg:(img)=>{
+      return img.replace('/images', 'img');
+    }
+  },
   methods: {
     closeWin(){
       ipcRenderer.send('close-main');

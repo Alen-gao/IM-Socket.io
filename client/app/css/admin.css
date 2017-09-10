@@ -1,11 +1,22 @@
-******************
-   admin.html style css
-*******************/
+
 body{
   -webkit-app-region: drag;
 }
+
+@font-face {
+  font-family: 'iconfont';  /* project id 351760 */
+  src: url('iconfont/iconfont.eot');
+  src: url('iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('iconfont/iconfont.woff') format('woff'),
+  url('iconfont/iconfont.ttf') format('truetype'),
+  url('iconfont/iconfont.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: 'iconfont';
+}
 .left .setup, .left-list,.left .title, .left .menu,
-.right .title .operation{
+.right .title .operation,.left .user-list ul,.search>input,
+.content .message, .edit, .left .menu-item, .left .menu-item .menu-radius {
   -webkit-app-region: no-drag;
 }
 .main{
@@ -70,16 +81,26 @@ body{
 .left .user>img{
   max-width: 100%;
 }
-.left .menu{
-  width: 100%;
-}
 .left .menu-item{
   width: 40px;
-  height: 40px;
+  color: #FFF;
   cursor: pointer;
   position: relative;
   margin-left: 10px;
   margin-bottom: 30px;
+  text-align: center;
+}
+.left .menu-item .menu-radius {
+  font-size: 40px;
+  color: #FFF;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 40px;
+  line-height: 40px;
+}
+.left .menu-item .menu-radius.icon-chat {
+  font-size: 32px;
 }
 .left .menu-item>img{
   max-width: 100%;
@@ -99,7 +120,6 @@ body{
   width: 100%;
   height: 30px;
   padding: 10px 5px;
-  -webkit-app-region: no-drag;
 }
 .left .user-list{
   width: 100%;
@@ -111,7 +131,6 @@ body{
   height: 100%;
   overflow: hidden;
   overflow-y: auto;
-  -webkit-app-region: no-drag;
 }
 .left .item{
   width: 100%;
@@ -216,7 +235,6 @@ body{
   height: 100%;
   overflow: hidden;
   overflow-y: auto; 
-  -webkit-app-region: no-drag;
 }
 .content .mess-left, .content .mess-right{
   width: 100%;
@@ -405,7 +423,6 @@ body{
   left: 0;
   bottom: 0;
   z-index: 20;
-  -webkit-app-region: no-drag;
 }
 .edit .bar{
   width: 100%;
