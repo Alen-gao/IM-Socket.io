@@ -16,7 +16,9 @@ body{
 }
 .left .setup, .left-list,.left .title, .left .menu,
 .right .title .operation,.left .user-list ul,.search>input,
-.content .message, .edit, .left .menu-item, .left .menu-item .menu-radius {
+.content .message, .edit, .left .menu-item, .left .menu-item .menu-radius,
+.left-list .group, .left-list .group .group-tab ,.left-list .group .group-tab > div,
+.group-box, .group-box .group-list, .group-box .muc-list{
   -webkit-app-region: no-drag;
 }
 .main{
@@ -39,11 +41,49 @@ body{
   position: relative;
 }
 .left-list{
-  padding: 10px 2px;
+  padding: 0 2px;
+}
+.left-list .chat {
+  padding: 10px 0;
 }
 .left-list{
   width: 220px;
   background-color: rgba(242,242,242,.95);
+}
+.left-list .group {
+  
+}
+.left-list .group .group-tab {
+  width: 100%;
+  height: 40px;
+  color: #666;
+  font-size: 16px;
+  line-height: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+.left-list .group .group-tab > div {
+  flex: 1;
+  cursor: pointer;
+  background-color: transparent;
+  border-bottom: 2px solid rgba(255, 255, 255, 0);
+}
+.left-list .group .group-tab > div.active {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgb(220, 62, 62);
+}
+.group-box {
+  color: #666;
+  font-size: 14px;
+  padding: 10px 2px;
+}
+.group-box .group-list {
+
+}
+.group-box .muc-list {
+
 }
 
 .left-inform{

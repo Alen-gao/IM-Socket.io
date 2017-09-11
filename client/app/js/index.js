@@ -3,6 +3,8 @@ new Vue({
   data: {
     userList: null,
     current: null,
+    group: false,
+    isgroup: true,
     userid: window.localStorage.getItem('uid')
   },
   created(){
@@ -22,6 +24,18 @@ new Vue({
     },
     closeMax(){
       ipcRenderer.send('max-main');
+    },
+    showChat(){
+      this.group = false;
+    },
+    showGroup(){
+      this.group = true;
+    },
+    isGroup(){
+      this.isgroup = true;
+    },
+    isMuc(){
+      this.isgroup = false;
     },
     delUser(item){
       var index = this.userList.indexOf(item);

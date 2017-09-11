@@ -24,11 +24,11 @@
             <img src="img/ico.jpg" />
         </div>
         <div class="menu">
-          <div class="menu-item">
+          <div class="menu-item" @click="showChat">
             <span class="menu-radius iconfont icon-chat">&#xe605;</span>
             <p>消息</p>
           </div>
-          <div class="menu-item">
+          <div class="menu-item" @click="showGroup">
             <span class="menu-radius iconfont">&#xe624;</span>
             <p>群组</p>
           </div>
@@ -47,19 +47,35 @@
      <!-- user Informat end -->
     <!-- user List start -->
     <div class="left-list">
-        <div class="search"><input id="username" type="text"  placeholder="Search" /></div>
-        <div  class="user-list">
-          <ul >
-            <li class="item {{item.light}}" v-for="item in userList" v-if="item.userid!=userid" @click="toggleSession(item)">
-              <img v-bind:src="item.img | filterImg" />
-              <div>
-                <strong>{{item.username}}</strong>
-                <span>{{item.endmeaage}}</span>
-              </div>
-              <span class="drag" v-if="item.unread">{{item.unread}}</span>
-              <span class="close" @click="delUser(item)"></span>
-            </li>
-          </ul>
+        <div class="chat" v-if="!group">
+          <div class="search"><input id="username" type="text"  placeholder="Search" /></div>
+          <div  class="user-list">
+            <ul >
+              <li class="item {{item.light}}" v-for="item in userList" v-if="item.userid!=userid" @click="toggleSession(item)">
+                <img v-bind:src="item.img | filterImg" />
+                <div>
+                  <strong>{{item.username}}</strong>
+                  <span>{{item.endmeaage}}</span>
+                </div>
+                <span class="drag" v-if="item.unread">{{item.unread}}</span>
+                <span class="close" @click="delUser(item)"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div  class="group"  v-if="group">
+          <div class="group-tab">
+            <div v-bind:class="{active:isgroup}" @click="isGroup">群</div>
+            <div v-bind:class="{active:!isgroup}" @click="isMuc">讨论组</div>
+          </div>
+          <div class="group-box">
+            <div class="group-list" v-if="isgroup">
+              您暂时还没有添加任何群
+            </div>
+            <div class="muc-list" v-if="!isgroup">
+              您暂时还没有添加任何讨论组
+            </div>
+          </div>
         </div>
     </div>
     <!-- user List end -->
