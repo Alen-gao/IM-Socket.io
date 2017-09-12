@@ -24,21 +24,14 @@
             <img src="img/ico.jpg" />
         </div>
         <div class="menu">
-          <div class="menu-item" @click="showChat">
+          <div class="menu-item" v-bind:class="{active: showchat}" @click="showChat">
             <span class="menu-radius iconfont icon-chat">&#xe605;</span>
             <p>消息</p>
           </div>
-          <div class="menu-item" @click="showGroup">
+          <div class="menu-item" v-bind:class="{active: showgroup}" @click="showGroup">
             <span class="menu-radius iconfont">&#xe624;</span>
             <p>群组</p>
           </div>
-          <!-- <div class="menu-item">
-            <span class="menu-radius"></span>
-            <p></p>
-          </div> -->
-          <!-- <p class="menu-item"><img src="img/home.png" /></p>
-          <p class="menu-item"><img src="img/drill.png" /></p>
-          <p class="menu-item"><img src="img/camera.png" /></p> -->
         </div>
         <div class="setup">
           

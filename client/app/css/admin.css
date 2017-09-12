@@ -45,13 +45,15 @@ body{
 }
 .left-list .chat {
   padding: 10px 0;
+  height: 100%;
 }
 .left-list{
   width: 220px;
   background-color: rgba(242,242,242,.95);
 }
 .left-list .group {
-  
+  height: 100%;
+  padding-top: 50px;
 }
 .left-list .group .group-tab {
   width: 100%;
@@ -63,6 +65,9 @@ body{
   text-align: center;
   display: flex;
   flex-direction: row;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .left-list .group .group-tab > div {
   flex: 1;
@@ -72,7 +77,7 @@ body{
 }
 .left-list .group .group-tab > div.active {
   background-color: rgba(255, 255, 255, 0.5);
-  border-bottom: 2px solid rgb(220, 62, 62);
+  border-bottom: 2px solid rgba(220, 62, 62, .95);
 }
 .group-box {
   color: #666;
@@ -123,21 +128,32 @@ body{
 }
 .left .menu-item{
   width: 40px;
-  color: #FFF;
+  color: #F0F0F0;
   cursor: pointer;
   position: relative;
   margin-left: 10px;
   margin-bottom: 30px;
   text-align: center;
 }
+.left .menu-item.active {
+  font-weight: 600;
+  color: #FFF;
+  background-color: transparent;
+}
 .left .menu-item .menu-radius {
   font-size: 40px;
-  color: #FFF;
+  color: #F0F0F0;
   width: 40px;
   height: 40px;
   display: inline-block;
   border-radius: 40px;
   line-height: 40px;
+}
+.left .menu-item.active .menu-radius {
+  color: #FFF;
+}
+.left .menu-item > p {
+  font-size: 14px;
 }
 .left .menu-item .menu-radius.icon-chat {
   font-size: 32px;

@@ -5,6 +5,8 @@ new Vue({
     current: null,
     group: false,
     isgroup: true,
+    showchat: true,
+    showgroup: false,
     userid: window.localStorage.getItem('uid')
   },
   created(){
@@ -27,9 +29,13 @@ new Vue({
     },
     showChat(){
       this.group = false;
+      this.showchat = true;
+      this.showgroup = false;
     },
     showGroup(){
       this.group = true;
+      this.showchat = false;
+      this.showgroup = true;
     },
     isGroup(){
       this.isgroup = true;
