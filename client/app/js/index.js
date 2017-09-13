@@ -5,6 +5,9 @@ new Vue({
     current: null,
     group: false,
     isgroup: true,
+    isChat: false,
+    mask: false,
+    muc: false,
     showchat: true,
     showgroup: false,
     userid: window.localStorage.getItem('uid')
@@ -43,6 +46,10 @@ new Vue({
     isMuc(){
       this.isgroup = false;
     },
+    showMucBox(){
+      this.mask = true;
+      this.muc = true;
+    },
     delUser(item){
       var index = this.userList.indexOf(item);
       this.userList.splice(index, 1);
@@ -56,6 +63,7 @@ new Vue({
     },
     toggleSession(item){
       this.current = item;
+      this.isChat = true;
       window.localStorage.setItem('current', item.userid);
     },
     handleFileChange(){

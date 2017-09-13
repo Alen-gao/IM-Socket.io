@@ -77,7 +77,15 @@
   <!-- left dom end -->
 
   <!-- right dom start -->
-  <div class="right">
+  <div class="right" v-show="!isChat">
+    <div class="center-chatImg">
+      <div class="img">
+        <img src="img/ico.png" />
+      </div>
+      <p>欢迎使用!</p>
+    </div>
+  </div>
+  <div class="right" v-show="isChat">
     <!-- top dom start -->
     <div class="title">
       <span class="userPhoto"><img src="img/ico.jpg" /></span>
@@ -85,40 +93,18 @@
         <strong>{{current.nickname}}</strong>
         <span>{{current.endmeaage}}</span>
       </div>
-      <div class="operation">
+      <!-- <div class="operation">
         <div class="sendfile" title="发送文件">
             <input id="file" type="file"  multiple />
-          <!-- <div class="file-type">
-              <p><input type="file" /> 发送单个文件</p>
-              <p><input type="file"  multiple /></p>
-          </div> -->
         </div>
         <span class="information" style="display:none"></span>
-      </div>
+      </div> -->
     </div>
     <!-- top dom end -->
 
     <!-- content dom start -->
     <div class="content">
       <div id="message" class="message">
-
-        <!-- <div class="mess-left">
-          <span class="user-img"><img src="img/03.gif"></span>
-          <p class="mess-cont">I love you, Allen</p>
-        </div>
-        <div class="mess-right">
-          <span class="user-img"><img src="img/04.gif"></span>
-          <p class="mess-cont">I love you too, Nancy</p>
-        </div>
-        <div class="mess-left">
-          <span class="user-img"><img src="img/03.gif"></span>
-          <p class="mess-cont">I love you not because of who you are,but because of who I am when I am with you.No man or woman is worth your tears,and the one who is ,won‘t make you cry. </p>
-        </div>
-        <div class="mess-right">
-          <span class="user-img"><img src="img/04.gif"></span>
-          <p class="mess-cont">The worst way to miss someone is to be sitting right beside them knowing you can‘t have them. Never frown,even when you are sad,because you never know who is falling in love with your smile. </p>
-        </div>
-         -->
       </div>
     </div>
     <!-- content dom end -->
@@ -131,16 +117,25 @@
         <span class="shake J-EditItem" unselectable="on" onmousedown="return false"></span>
         <span class="det J-EditItem" unselectable="on" onmousedown="return false"></span>
         <span class="img J-EditItem" unselectable="on" onmousedown="return false"><input type="file" class="add-file" @change="handleFileChange" ref="inputer" /></span>
+        <span class="muc J-EditItem" unselectable="on" onmousedown="return false" @click="showMucBox">&#xe625;</span>
         <span class="cut J-EditItem" unselectable="on" onmousedown="return false"></span>
         <strong class="record fr">查看消息记录</strong>
       </div>
-      <div id="textarea" class="textarea J-Edit" contenteditable="true">
+      <div id="textarea" class="textarea J-Edit" contenteditable="true" >
       </div>
     </div>
     <!-- bottom dom end -->
 
   </div>
   <!-- right dom end -->
+
+  <!-- add muc -->
+  <div class="mask" v-if="mask"></div>
+  <div class="muc-box" v-if="muc">
+    <div class="title">添加讨论组 <span class="fr">&#xe641;</span></div>
+  </div>
+  <!-- add muc -->
+
 </div>
   <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>

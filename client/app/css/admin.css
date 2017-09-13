@@ -376,13 +376,40 @@ body{
   background-color: #FFF;
   position: relative;
 }
+.right .center-chatImg {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -100px;
+}
+.right .center-chatImg>.img {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  border-radius: 120px;
+  background-color: #151515;
+  text-align: center;
+}
+.right .center-chatImg>.img img {
+  display: inline-block;
+  margin-top: 30px;
+}
+.right .center-chatImg > p {
+  color: #666;
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+}
 .right .title{
   width: 100%;
   height: 80px;
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 20;
+  z-index: 1;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 1px 1px 2px rgba(0,0,0,.18);
   -webkit-app-region: drag;
@@ -478,7 +505,7 @@ body{
   position: absolute;
   left: 0;
   bottom: 0;
-  z-index: 20;
+  z-index: 1;
 }
 .edit .bar{
   width: 100%;
@@ -534,6 +561,17 @@ body{
 }
 .edit .bar .cut{
   background-position: -146px  -1px;
+}
+.edit .bar .muc{
+  font-family: 'iconfont';
+  color: #666;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  background: transparent;
+}
+.edit .bar .muc:hover {
+  color: #5c9dcb;
 }
 .edit .bar .cut:hover{
   background-position: -146px  -30px;
@@ -606,18 +644,42 @@ body{
   color: #666;
   border-top: 1px solid #CCC;
 }
-/*.edit button{
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
-  font-size: 16px;
-  background-color: #f7f7f7;
+.mask {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  right: 10px;
-  top: 10px;
-  box-shadow: 0 0 2px #818181;
-  -webkit-transition: all 0.5s;
+  border-radius: 3px;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.2);
 }
-.edit button:hover{
-    background-color: #E4E2E2;
+.muc-box {
+  color: #666;
+  width: 420px;
+  height: 320px;
+  overflow:hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -160px;
+  margin-left: -210px;
+  z-index: 3;
+  border-radius: 3px;
+  background-color: #FFF;
+}
+.muc-box .title {
+  height: 40px;
+  line-height: 40px;
+  text-indent: 20px;
+  border: 1px solid #f0f0f0;
+}
+.muc-box .title .fr {
+  float: right;
+  color: #999;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+  line-height: 40px;
+  font-family: 'iconfont';
 }

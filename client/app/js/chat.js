@@ -28,9 +28,11 @@ var converId = null;
 		socket:null,
 		//让浏览器滚动条保持在最低部
 		scrollToBottom:function(){
-			setTimeout(function(){
-				d.getElementById("message").scrollTop = 1000000000;
-			},120);
+			if (d.getElementById("message")) {
+				setTimeout(function(){
+					d.getElementById("message").scrollTop = 1000000000;
+				},120);
+			}
 		},
 		//退出，本例只是一个简单的刷新
 		logout:function(){
@@ -98,8 +100,8 @@ var converId = null;
 		},
 		//第一个界面用户提交用户名
 		usernameSubmit:function(username){
-			if(username != ""){
-				d.getElementById("username").value = '';
+			if(username){
+				// d.getElementById("username").value = '';
 				// d.getElementById("loginbox").style.display = 'none';
 				// d.getElementById("chatbox").style.display = 'block';
 				this.init(username);
@@ -113,6 +115,7 @@ var converId = null;
 			*/
 			this.userid = uid;
 			this.username = username;
+			console.log('init', username);
 			
 			//连接websocket后端服务器
 			// this.socket = io.connect('http://socket.nodegeek.org/');
@@ -145,6 +148,7 @@ var converId = null;
 	
 	//通过“回车”提交用户名
 	ipcRenderer.on('post-username',  function(event, message) {
+		console.log('1234', message);
 		CHAT.usernameSubmit(message);
 	});
 	var username = window.localStorage.getItem("username");
@@ -156,6 +160,7 @@ var converId = null;
 	// };
 	//通过“回车”提交信息
 	d.getElementById("textarea").onkeydown = function(e) {
+		console.log(123);
 		e = e || event;
 		if (e.keyCode === 13) {
 			CHAT.submit();
