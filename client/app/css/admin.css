@@ -683,3 +683,11 @@ body{
   line-height: 40px;
   font-family: 'iconfont';
 }
+.muc-box .muc-cont {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.muc-box .muc-cont > div {
+  flex: 1;
+}
