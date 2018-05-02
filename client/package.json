@@ -1,14 +1,14 @@
 {
-  "name": "IM-webSocket",
-  "main": "main.js",
-  "version": "0.0.3",
-	"scripts": {
-    "start": "electron .",
-    "test": "electron-packager . app --win --out OutApp --arch=x64 --version 1.4.0 --overwrite --ignore=node_modules --icon= ./app/img/icon.ico"
-  },
-  "dependencies": {
-    "electron": "*",
-    "menu": "^0.2.5",
-    "path": "^0.12.7"
-  }
+    "name": "IM-webSocket",
+    "main": "main.js",
+    "version": "0.0.3",
+    "scripts": {
+        "start": "electron .",
+        "test": "electron-packager . app --win --out OutApp --arch=x64 --version 1.4.0 --overwrite --ignore=node_modules --icon= ./app/img/icon.ico"
+    },
+    "dependencies": {
+        "electron": "*",
+        "menu": "^0.2.5",
+        "path": "^0.12.7"
+    }
 }
