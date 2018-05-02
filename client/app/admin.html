@@ -1,154 +1,157 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>WebSocket</title>
     <link rel="stylesheet" type="text/css" href="css/global.css" />
     <link rel="stylesheet" type="text/css" href="css/admin.css" />
-    <!-- <script type="text/javascript" src="http://socket.nodegeek.org/socket.io/socket.io.js"></script> -->
-    <script type="text/javascript" src="http://io.nodegeek.org/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+    <!-- <script type="text/javascript" src="http://io.nodegeek.org/socket.io/socket.io.js"></script> -->
 </head>
-<body>
-<div class="main" id="chat">
-  <!-- left dom start -->
-  <div class="left">
-    <!-- user Informat start -->
-    <div class="left-inform">
-        <div class="title">
-          <span class="radius close-win" @click="closeWin"></span>
-          <span class="radius yellow min-win" @click="closeMin"></span>
-          <span class="radius green max-win" @click="closeMax"></span>
-        </div>
-        <div class="user">
-            <img src="img/ico.jpg" />
-        </div>
-        <div class="menu">
-          <div class="menu-item" v-bind:class="{active: showchat}" @click="showChat">
-            <span class="menu-radius iconfont icon-chat">&#xe605;</span>
-            <p>消息</p>
-          </div>
-          <div class="menu-item" v-bind:class="{active: showgroup}" @click="showGroup">
-            <span class="menu-radius iconfont">&#xe624;</span>
-            <p>群组</p>
-          </div>
-        </div>
-        <div class="setup">
-          
-        </div>
-    </div>
-     <!-- user Informat end -->
-    <!-- user List start -->
-    <div class="left-list">
-        <div class="chat" v-if="!group">
-          <div class="search"><input id="username" type="text"  placeholder="Search" /></div>
-          <div  class="user-list">
-            <ul >
-              <li class="item {{item.light}}" v-for="item in userList" v-if="item.userid!=userid" @click="toggleSession(item)">
-                <img v-bind:src="item.img | filterImg" />
-                <div>
-                  <strong>{{item.username}}</strong>
-                  <span>{{item.endmeaage}}</span>
-                </div>
-                <span class="drag" v-if="item.unread">{{item.unread}}</span>
-                <span class="close" @click="delUser(item)"></span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div  class="group"  v-if="group">
-          <div class="group-tab">
-            <div v-bind:class="{active:isgroup}" @click="isGroup">群</div>
-            <div v-bind:class="{active:!isgroup}" @click="isMuc">讨论组</div>
-          </div>
-          <div class="group-box">
-            <div class="group-list" v-if="isgroup">
-              您暂时还没有添加任何群
-            </div>
-            <div class="muc-list" v-if="!isgroup">
-              您暂时还没有添加任何讨论组
-            </div>
-          </div>
-        </div>
-    </div>
-    <!-- user List end -->
-    
-  </div>
-  <!-- left dom end -->
 
-  <!-- right dom start -->
-  <div class="right" v-show="!isChat">
-    <div class="center-chatImg">
-      <div class="img">
-        <img src="img/ico.png" />
-      </div>
-      <p>欢迎使用!</p>
-    </div>
-  </div>
-  <div class="right" v-show="isChat">
-    <!-- top dom start -->
-    <div class="title">
-      <span class="userPhoto"><img src="img/ico.jpg" /></span>
-      <div class="userInform">
-        <strong>{{current.nickname}}</strong>
-        <span>{{current.endmeaage}}</span>
-      </div>
-      <!-- <div class="operation">
+<body>
+    <div class="main" id="chat">
+        <!-- left dom start -->
+        <div class="left">
+            <!-- user Informat start -->
+            <div class="left-inform">
+                <div class="title">
+                    <span class="radius close-win" @click="closeWin"></span>
+                    <span class="radius yellow min-win" @click="closeMin"></span>
+                    <span class="radius green max-win" @click="closeMax"></span>
+                </div>
+                <div class="user">
+                    <img src="img/ico.jpg" />
+                </div>
+                <div class="menu">
+                    <div class="menu-item" v-bind:class="{active: showchat}" @click="showChat">
+                        <span class="menu-radius iconfont icon-chat">&#xe605;</span>
+                        <p>消息</p>
+                    </div>
+                    <div class="menu-item" v-bind:class="{active: showgroup}" @click="showGroup">
+                        <span class="menu-radius iconfont">&#xe624;</span>
+                        <p>群组</p>
+                    </div>
+                </div>
+                <div class="setup">
+
+                </div>
+            </div>
+            <!-- user Informat end -->
+            <!-- user List start -->
+            <div class="left-list">
+                <div class="chat" v-if="!group">
+                    <div class="search"><input id="username" type="text" placeholder="Search" /></div>
+                    <div class="user-list">
+                        <ul>
+                            <li class="item {{item.light}}" v-for="item in userList" v-if="item.userid!=userid" @click="toggleSession(item)">
+                                <img v-bind:src="item.img | filterImg" />
+                                <div>
+                                    <strong>{{item.username}}</strong>
+                                    <span>{{item.endmeaage}}</span>
+                                </div>
+                                <span class="drag" v-if="item.unread">{{item.unread}}</span>
+                                <span class="close" @click="delUser(item)"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="group" v-if="group">
+                    <div class="group-tab">
+                        <div v-bind:class="{active:isgroup}" @click="isGroup">群</div>
+                        <div v-bind:class="{active:!isgroup}" @click="isMuc">讨论组</div>
+                    </div>
+                    <div class="group-box">
+                        <div class="group-list" v-if="isgroup">
+                            您暂时还没有添加任何群
+                        </div>
+                        <div class="muc-list" v-if="!isgroup">
+                            您暂时还没有添加任何讨论组
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- user List end -->
+
+        </div>
+        <!-- left dom end -->
+
+        <!-- right dom start -->
+        <div class="right" v-show="!isChat">
+            <div class="center-chatImg">
+                <div class="img">
+                    <img src="img/ico.png" />
+                </div>
+                <p>欢迎使用!</p>
+            </div>
+        </div>
+        <div class="right" v-show="isChat">
+            <!-- top dom start -->
+            <div class="title">
+                <span class="userPhoto"><img src="img/ico.jpg" /></span>
+                <div class="userInform">
+                    <strong>{{current.nickname}}</strong>
+                    <span>{{current.endmeaage}}</span>
+                </div>
+                <!-- <div class="operation">
         <div class="sendfile" title="发送文件">
             <input id="file" type="file"  multiple />
         </div>
         <span class="information" style="display:none"></span>
       </div> -->
+            </div>
+            <!-- top dom end -->
+
+            <!-- content dom start -->
+            <div class="content">
+                <div id="message" class="message">
+                </div>
+            </div>
+            <!-- content dom end -->
+
+            <!-- bottom dom start -->
+            <div class="edit">
+                <div class="bar" unselectable="on" onmousedown="return false">
+                    <span class="font J-EditItem" unselectable="on" onmousedown="return false"></span>
+                    <span class="face J-EditItem" unselectable="on" onmousedown="return false"></span>
+                    <span class="shake J-EditItem" unselectable="on" onmousedown="return false"></span>
+                    <span class="det J-EditItem" unselectable="on" onmousedown="return false"></span>
+                    <span class="img J-EditItem" unselectable="on" onmousedown="return false"><input type="file" class="add-file" @change="handleFileChange" ref="inputer" /></span>
+                    <span class="muc J-EditItem" unselectable="on" onmousedown="return false" @click="showMucBox">&#xe625;</span>
+                    <span class="cut J-EditItem" unselectable="on" onmousedown="return false"></span>
+                    <strong class="record fr">查看消息记录</strong>
+                </div>
+                <div id="textarea" class="textarea J-Edit" contenteditable="true">
+                </div>
+            </div>
+            <!-- bottom dom end -->
+
+        </div>
+        <!-- right dom end -->
+
+        <!-- add muc -->
+        <div class="mask" v-if="mask"></div>
+        <div class="muc-box" v-if="muc">
+            <div class="title">添加讨论组 <span class="fr">&#xe641;</span></div>
+            <div class="muc-cont">
+                <div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+        <!-- add muc -->
+
     </div>
-    <!-- top dom end -->
-
-    <!-- content dom start -->
-    <div class="content">
-      <div id="message" class="message">
-      </div>
-    </div>
-    <!-- content dom end -->
-
-    <!-- bottom dom start -->
-    <div class="edit">
-      <div class="bar"unselectable="on" onmousedown="return false">
-        <span class="font J-EditItem" unselectable="on" onmousedown="return false"></span>
-        <span class="face J-EditItem" unselectable="on" onmousedown="return false"></span>
-        <span class="shake J-EditItem" unselectable="on" onmousedown="return false"></span>
-        <span class="det J-EditItem" unselectable="on" onmousedown="return false"></span>
-        <span class="img J-EditItem" unselectable="on" onmousedown="return false"><input type="file" class="add-file" @change="handleFileChange" ref="inputer" /></span>
-        <span class="muc J-EditItem" unselectable="on" onmousedown="return false" @click="showMucBox">&#xe625;</span>
-        <span class="cut J-EditItem" unselectable="on" onmousedown="return false"></span>
-        <strong class="record fr">查看消息记录</strong>
-      </div>
-      <div id="textarea" class="textarea J-Edit" contenteditable="true" >
-      </div>
-    </div>
-    <!-- bottom dom end -->
-
-  </div>
-  <!-- right dom end -->
-
-  <!-- add muc -->
-  <div class="mask" v-if="mask"></div>
-  <div class="muc-box" v-if="muc">
-    <div class="title">添加讨论组 <span class="fr">&#xe641;</span></div>
-    <div class="muc-cont">
-      <div>
-      </div>
-      <div>
-        
-      </div>
-    </div>
-  </div>
-  <!-- add muc -->
-
-</div>
-  <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-  <script type="text/javascript" src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
-  <script type="text/javascript" src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
-  <script type="text/javascript" src="js/config.js"></script>
-  <script type="text/javascript" src="js/chat.js"></script>
-  <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </body>
+
 </html>
